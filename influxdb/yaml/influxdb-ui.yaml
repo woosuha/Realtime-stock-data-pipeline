@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb3-explorer
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb3-explorer
+  template:
+    metadata:
+      labels:
+        app: influxdb3-explorer
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-nodepool
+                operator: In
+                values:
+                - pool-3
+      containers:
+      - name: explorer
+        image: influxdata/influxdb3-ui:1.9.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb3-explorer-service
+  namespace: influxdb
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8888
+    targetPort: 8080
+  selector:
+    app: influxdb3-explorer

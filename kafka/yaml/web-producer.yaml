@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-producer
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-producer
+  template:
+    metadata:
+      labels:
+        app: web-producer
+    spec :
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-1
+      containers:
+        - name: web-producer
+          image: wsh120/my-producer:v2
+          
+          envFrom:
+            - secretRef:
+                name: kafka-secret
+
+

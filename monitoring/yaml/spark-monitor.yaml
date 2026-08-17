@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: spark-streaming
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - spark-test
+
+  selector:
+    matchLabels:
+      sparkoperator.k8s.io/app-name: spark-streaming
+      spark-role: driver
+
+  podMetricsEndpoints:
+    - portNumber: 8000
+      path: /metrics
+      interval: 5s

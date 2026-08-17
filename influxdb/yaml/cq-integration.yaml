@@ -1,0 +1,212 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx-cq-5s
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influx-cq-5s
+  template:
+    metadata:
+      labels:
+        app: influx-cq-5s
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-3
+      containers:
+        - name: influx-cq-5s
+          image: wsh120/my-cq:v1
+          command: ["python", "cq_5s.py"]
+          
+          env:
+            - name: INFLUX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: INFLUX_TOKEN
+
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: SLACK_WEBHOOK_URL
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx-cq-1m
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influx-cq-1m
+  template:
+    metadata:
+      labels:
+        app: influx-cq-1m
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-3
+      containers:
+        - name: influx-cq-1m
+          image: wsh120/my-cq:v1
+          command: ["python", "cq_1m.py"]
+          
+          env:
+            - name: INFLUX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: INFLUX_TOKEN
+
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: SLACK_WEBHOOK_URL
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx-cq-5m
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influx-cq-5m
+  template:
+    metadata:
+      labels:
+        app: influx-cq-5m
+
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-3
+      containers:
+        - name: influx-cq-5m
+          image: wsh120/my-cq:v1
+          command: ["python", "cq_5m.py"]
+          
+          env:
+            - name: INFLUX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: INFLUX_TOKEN
+
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: SLACK_WEBHOOK_URL
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx-cq-15m
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influx-cq-15m
+  template:
+    metadata:
+      labels:
+        app: influx-cq-15m
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-3
+      containers:
+        - name: influx-cq-15m
+          image: wsh120/my-cq:v1
+          command: ["python", "cq_15m.py"]
+          
+          env:
+            - name: INFLUX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: INFLUX_TOKEN
+
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: SLACK_WEBHOOK_URL
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx-cq-60m
+  namespace: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influx-cq-60m
+  template:
+    metadata:
+      labels:
+        app: influx-cq-60m
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-nodepool
+                    operator: In
+                    values:
+                      - pool-3
+      containers:
+        - name: influx-cq-60m
+          image: wsh120/my-cq:v1
+          command: ["python", "cq_60m.py"]
+          
+          env:
+            - name: INFLUX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: INFLUX_TOKEN
+
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: SLACK_WEBHOOK_URL
+

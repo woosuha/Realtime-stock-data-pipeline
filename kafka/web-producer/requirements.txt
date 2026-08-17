@@ -1,0 +1,5 @@
+requests==2.34.2
+avro==1.12.1
+websockets==16.1.1
+pytz==2026.2
+kafka-python==3.0.9

@@ -1,0 +1,34 @@
+{
+"type": "array",
+"items": {
+"type": "record",
+"name": "StockDataWithTimestamp",
+"fields": [
+{"name": "timestamp_web", "type": "string", "logicalType" : "timestamp-micros"},
+{
+"name": "data",
+"type": {
+"type": "array",
+"items": {
+"type": "record",
+"name": "StockData",
+"fields": [
+{"name": "t", "type": "long"},
+{"name": "s", "type": "string"},
+{"name": "p", "type": "double"},
+{"name": "v", "type": "double"},
+{
+  "name": "c",
+  "type": ["null", {"type": "array", "items": "string"}],
+  "default": null
+},
+{"name": "Hash", "type": "string"},
+{"name": "Seq", "type": "long"}
+]
+}
+}
+}
+]
+}
+}
+

@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicurio-registry
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apicurio-registry
+  template:
+    metadata:
+      labels:
+        app: apicurio-registry
+    spec:
+      containers:
+        - name: registry
+          image: apicurio/apicurio-registry:3.2.4
+          ports:
+            - containerPort: 8080
+              name: api-port
+          env:
+            - name: APICURIO_STORAGE_KIND
+              value: "kafkasql"
+
+            - name: APICURIO_KAFKASQL_BOOTSTRAP_SERVERS
+              value: "my-cluster-kafka-bootstrap:9092"
+
+            - name: APICURIO_KAFKASQL_TOPIC_AUTO_CREATE
+              value: "true"
+            - name: APICURIO_KAFKASQL_CONSUMER_GROUP_ID
+              value: "apicurio-registry-group"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apicurio-registry
+  namespace: kafka
+spec:
+  selector:
+    app: apicurio-registry
+  ports:
+    - port: 8080
+      targetPort: api-port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicurio-ui
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apicurio-ui
+  template:
+    metadata:
+      labels:
+        app: apicurio-ui
+    spec:
+      containers:
+        - name: ui
+          image: apicurio/apicurio-registry-ui:3.2.4
+          ports:
+            - containerPort: 8080
+              name: ui-port
+          env:
+            - name: REGISTRY_API_URL
+              value: "http://localhost:8080/apis/registry/v3"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apicurio-ui
+  namespace: kafka
+spec:
+  selector:
+    app: apicurio-ui
+  ports:
+    - port: 8888
+      targetPort: ui-port
