@@ -11,6 +11,11 @@
 
 <img width="1641" height="1059" alt="image" src="https://github.com/user-attachments/assets/3339cc21-3fc3-4b1d-b451-ee13ac2d7d2f" />
 
+# [ 데이터 파이프라인 ]
+
+<img width="1010" height="577" alt="image" src="https://github.com/user-attachments/assets/248181e6-7f2a-4a53-93cc-10d2c6d53869" />
+
+
 # [ 대시보드 구성 ]
 
 <img width="1842" height="1033" alt="image" src="https://github.com/user-attachments/assets/a55dde4f-bbc4-4fa7-8a5f-67c66b2ddaba" />
