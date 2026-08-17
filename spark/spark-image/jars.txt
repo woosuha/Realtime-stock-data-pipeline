@@ -1,0 +1,6 @@
+gcs-connector-hadoop3.jar
+kafka-clients-3.9.0.jar
+spark-avro_2.13-4.0.1.jar
+spark-sql-kafka-0-10_2.13-4.0.1.jar
+spark-token-provider-kafka-0-10_2.13-4.0.1.jar
+commons-pool2-2.13.1.jar

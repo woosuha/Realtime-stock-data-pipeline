@@ -1,0 +1,79 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: spark-streaming
+  namespace: spark-job
+
+spec:
+  type: Python
+  mode: cluster
+
+  image: wsh120/my-spark:v11
+  imagePullPolicy: Always
+
+  sparkVersion: "4.0.1"
+
+  mainApplicationFile: "gs://stock-spark-applications/streaming/main.py"
+
+  restartPolicy:
+    type: Always
+
+  driver:
+    cores: 1
+    memory: "1G"
+    serviceAccount: spark-operator-spark
+    annotations:
+      iam.gke.io/gcp-service-account: 638815588798-compute@developer.gserviceaccount.com
+
+    envSecretKeyRefs:
+      INFLUX_TOKEN:
+        name: spark-secret
+        key: INFLUX_TOKEN
+      SLACK_WEBHOOK_URL:
+        name: spark-secret
+        key: SLACK_WEBHOOK_URL
+
+    ports:
+    - name: metrics
+      containerPort: 8000
+      protocol: TCP
+      
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cloud.google.com/gke-nodepool
+                  operator: In
+                  values:
+                    - pool-2
+
+  executor:
+    cores: 2
+    instances: 3
+    memory: "9G"
+    serviceAccount: spark-operator-spark
+    javaOptions: "-Dlog4j2.loggerContextDataProviders="
+    annotations:
+      iam.gke.io/gcp-service-account: 638815588798-compute@developer.gserviceaccount.com
+
+    envSecretKeyRefs:
+      INFLUX_TOKEN:
+        name: spark-secret
+        key: INFLUX_TOKEN
+      SLACK_WEBHOOK_URL:
+        name: spark-secret
+        key: SLACK_WEBHOOK_URL
+
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cloud.google.com/gke-nodepool
+                  operator: In
+                  values:
+                    - pool-2
+
+  sparkConf:
+    spark.executor.memoryOverhead: "1g"

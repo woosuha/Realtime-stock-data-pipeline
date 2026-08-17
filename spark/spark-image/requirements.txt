@@ -1,0 +1,9 @@
+pandas==2.2.3
+requests==2.32.3
+pyarrow==19.0.0
+influxdb3-python==0.20.0
+xgboost==2.1.1
+scikit-learn==1.5.1
+numpy==1.26.4
+scipy==1.13.1
+prometheus-client==0.22.1
