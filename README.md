@@ -24,8 +24,7 @@
 
 # [ 대시보드 구성 ]
 
-<img width="1842" height="1033" alt="image" src="https://github.com/user-attachments/assets/a55dde4f-bbc4-4fa7-8a5f-67c66b2ddaba" />
-
+<img width="1833" height="1010" alt="grafana" src="https://github.com/user-attachments/assets/6fba959d-8e21-424e-8a07-aa9eaf11416e" />
 
 
 # [ 모니터링 구성 ]
