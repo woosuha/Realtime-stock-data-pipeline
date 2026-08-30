@@ -1,4 +1,3 @@
-<img width="1675" height="1094" alt="소프트_final drawio" src="https://github.com/user-attachments/assets/086b1356-1c85-4e29-acd5-4a2284a3a5ad" />
 # 실시간 주식 데이터 시각화 및 모니터링
 
 📌 프로젝트 진행 기간: 2026.07.01 ~ 2026.08.14
